@@ -1,47 +1,30 @@
 import React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
-import Grid from '@mui/material/Grid';
+import { Card, CardContent, Typography, CardActionArea, Grid } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import { sections } from '../../Constants/Constants';
 
-function Home() {
+function Home() {    
     return (
-        <div className="App">
-            <header className="App-header">
-                <h4>Welcome to My Library</h4>
-                <Grid container justifyContent={'space-evenly'}>
-                    <Grid item xs={3}>
-                        <NavLink to="/books" style={{ textDecoration: 'none' }}>
+        <div>
+            <h4 style={{ textAlign: "center" }}>Welcome to My Library</h4>
+            <Grid container justifyContent={'space-evenly'}>
+                {Object.keys(sections).map(key => (
+                    <Grid item xs={3} key={key}>
+                        <NavLink to={sections[key]} style={{ textDecoration: 'none' }}>
                             <Card>
                                 <CardActionArea>
                                     <CardContent>
-                                        <Typography gutterBottom variant="h5" component="div">
-                                            Books
+                                        <Typography gutterBottom variant="h5" component="div" align='center'>
+                                            {key}
                                         </Typography>
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
                         </NavLink>
                     </Grid>
-                    <Grid item xs={3}>
-                        <NavLink to="/authors" style={{ textDecoration: 'none' }}>
-                            <Card>
-                                <CardActionArea>
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="div">
-                                            Authors
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </NavLink>
-                    </Grid>
-                </Grid>
-            </header>
+                ))}
+            </Grid>
         </div>
-
     )
 }
 

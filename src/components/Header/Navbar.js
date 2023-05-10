@@ -1,20 +1,30 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { NavLink } from 'react-router-dom';
+import React from 'react';
+import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
+    const navigate = useNavigate();
+    const navigateToAuthor = () => navigate("/author");
+    const navigateToBook = () => navigate("/book");
+    const navigateToHome = () => navigate("/");
+
     return (
-        <AppBar position="fixed">
+        <AppBar position="sticky">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <NavLink to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <Typography variant="h6" noWrap sx={{ fontWeight: 700 }}>
-                            MyLibrary
+                    <Button onClick={navigateToHome}>
+                        <Typography variant="h6" noWrap sx={{ fontWeight: 700, color: 'white' }}>
+                            My Library
                         </Typography>
-                    </NavLink>
+                    </Button>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        <Button onClick={navigateToAuthor} sx={{ my: 2, color: 'white', display: 'block' }}>
+                            Author
+                        </Button>
+                        <Button onClick={navigateToBook} sx={{ my: 2, color: 'white', display: 'block' }}>
+                            Book
+                        </Button>
+                    </Box>
                 </Toolbar>
             </Container>
         </AppBar>
