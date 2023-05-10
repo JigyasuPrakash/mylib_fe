@@ -9,15 +9,17 @@ function Books() {
     const [books, setBooks] = React.useState([]);
     const [fBooks, setFBooks] = React.useState([]);
     const [authors, setAuthors] = React.useState([]);
-    const [bookTitle, setBookTitle] = React.useState();
+    const [bookTitle, setBookTitle] = React.useState(null);
     const [level, setLevel] = React.useState(0);
     const [authorsName, setAuthorsName] = React.useState([]);
     const [price, setPrice] = React.useState(0.0);
     const [open, setOpen] = React.useState(false);
     const [priceFilter, setPriceFilter] = React.useState(null);
     const [levelFilter, setLevelFilter] = React.useState(null);
+    const [authorFilter, setAuthorFiler] = React.useState(null);
     const openPriceFilter = Boolean(priceFilter);
     const openLevelFilter = Boolean(levelFilter);
+    const openAuthorFilter = Boolean(authorFilter);
 
     React.useEffect(() => {
         fetchBookData();
@@ -27,11 +29,14 @@ function Books() {
 
     const handlePriceFilterOpen = (event) => setPriceFilter(event.currentTarget);
     const handleLevelFilterOpen = (event) => setLevelFilter(event.currentTarget);
+    const handleAuthorFilterOpen = (event) => setAuthorFiler(event.currentTarget);
     const handlePriceFilterClose = () => setPriceFilter(null);
     const handleLevelFilterClose = () => setLevelFilter(null);
+    const handleAuthorFilterClose = () => setAuthorFiler(null);
     const handleOpen = () => setOpen(true);
     const handleLevelChange = (newLevel) => setLevel(levels[newLevel]);
-
+    const clearAllFilters = () => setFBooks(books);
+    
     const filterBooksPrice = (type) => {
         setFBooks(books.sort_by(book => book.price, type === "dec"));
         handlePriceFilterClose();
@@ -39,12 +44,17 @@ function Books() {
     Array.prototype.sort_by = function (key_func, reverse = false) {
         return this.sort((a, b) => (key_func(b) - key_func(a)) * (reverse ? 1 : -1))
     }
-
+    
     const filterBooksLevel = (level) => {
         setFBooks(books.filter(book => levels[book.level] === level));
         handleLevelFilterClose();
     }
 
+    const filterBooksAuthor = (author_id) => {
+        setFBooks(books.filter(book => book.author_ids.includes(author_id)));
+        handleAuthorFilterClose();
+    }
+    
     const handleAuthorsName = (event) => {
         const { target: { value } } = event;
         setAuthorsName(typeof value === 'string' ? value.split(',') : value);
@@ -77,11 +87,11 @@ function Books() {
         e.preventDefault();
         let params = { book_title: bookTitle, price, level: level, authors: { ids: authorsName.map(x => x.id) } }
         axios.post(`${baseURL}/books`, params)
-        .then(() => {
-            handleClose();
-            fetchBookData();
-        })
-        .catch(e => console.error(e.message))
+            .then(() => {
+                handleClose();
+                fetchBookData();
+            })
+            .catch(e => console.error(e.message))
     }
 
     return (
@@ -130,7 +140,34 @@ function Books() {
                     <MenuItem onClick={() => filterBooksLevel(0)}>Begineer</MenuItem>
                     <MenuItem onClick={() => filterBooksLevel(1)}>Intermediate</MenuItem>
                     <MenuItem onClick={() => filterBooksLevel(2)}>Advanced</MenuItem>
-                </Menu>
+                </Menu>&emsp;
+                <Button
+                    id="author-button"
+                    aria-controls={openAuthorFilter ? 'author-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={openAuthorFilter ? 'true' : undefined}
+                    onClick={handleAuthorFilterOpen}
+                >
+                    Author
+                </Button>
+                <Menu
+                    id="author-menu"
+                    anchorEl={authorFilter}
+                    open={openAuthorFilter}
+                    onClose={handleAuthorFilterClose}
+                    MenuListProps={{
+                        'aria-labelledby': 'author-button',
+                    }}
+                >
+                    {authors.map(author => (
+                        <MenuItem key={author.id} onClick={() => filterBooksAuthor(author.id)}>{author.first_name + " " + author.last_name}</MenuItem>
+                    ))}
+                </Menu>&emsp;&emsp;
+                <Button
+                    onClick={clearAllFilters}
+                >
+                    Clear
+                </Button>
             </div><br />
             <GridView elements={fBooks.map(book => ({ id: book.id, type: "book", header: book.book_title, body: `Available only at $ ${book.price}. Recommended for ${book.level} readers.` }))} />
             <Fab style={{ position: 'fixed', bottom: 35, right: 35 }} color="primary" size='large' aria-label="add" onClick={handleOpen}>
