@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+# mylib_fe
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ This repository contains source code of mylib_fe. For demonstrating many to many relationship between authors and books.
 
-## Available Scripts
+## Dependency
+- <a href="https://github.com/JigyasuPrakash/mylib_be.git">mylib_be</a> (ROR backend application)
 
-In the project directory, you can run:
+## Installation
+``` bash
+$ git clone https://github.com/JigyasuPrakash/mylib_fe.git
 
-### `npm start`
+$ cd ./mylib_fe
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+$ npm install
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+$ npm start
+```
 
-### `npm test`
+### Problem Statement
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Requirement 1:
 
-### `npm run build`
+Create 2 models
+```
+Authors:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- author_id
+- first_name
+- last_name
+- date_of_birth
+```
+```
+Books:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- book_id
+- book_title
+- price
+- level (Beginner, intermediate, advanced)
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Requirement 2:
 
-### `npm run eject`
+Books can have many authors and Authors can have many Books.
+```
+For example:
+R D Sharma has written 2 Books Trigonometry and Advanced Trigonometry. On Advanced Trigonometry, he Collaborated with Deepika Yadav. So Advanced Trigonometry itself is composed of 2 Authors. Create any join tables if needed for the above requirement
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### Requirement 3:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Create an interface from where you can:
+```
+- Add Author
+- List Author
+- Edit Author
+- Delete Author
+```
+```
+- Add Book
+- List Book
+- Edit Book
+- Delete Book
+```
+While adding a book, you can select multiple authors from the author's table for that book.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### Requirement 4:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Add JQuery validation on all  forms (Required fields, Max or Min length, data type, etc)
 
-## Learn More
+#### Requirement 5:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Create an author/show to get author details
+```
+For Eg:
+If I fire /authors/{author_id}
+it will return the author's details and all the books that the author has written for the {author_id}
+```
+#### Requirement 6:
+Use Reactjs in frontend
+Add a ReactJS filter in the book listing page with price, level, and author name.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Author
+- <a href="https://jigyasuprakash.github.io">Jigyasu Prakash</a>

@@ -18,7 +18,6 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "deploy": "gh-pages -d build",
     "start": "FAST_REFRESH=false react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -43,7 +42,6 @@
     ]
   },
   "devDependencies": {
-    "react-router-dom": "^6.11.1",
-    "gh-pages": "^3.2.3"
+    "react-router-dom": "^6.11.1"
   }
 }
