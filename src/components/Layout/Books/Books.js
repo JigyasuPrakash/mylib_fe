@@ -38,11 +38,11 @@ function Books() {
     const clearAllFilters = () => setFBooks(books);
     
     const filterBooksPrice = (type) => {
-        setFBooks(books.sort_by(book => book.price, type === "dec"));
+        setFBooks(sort_by(books, book => book.price, type === "dec"));
         handlePriceFilterClose();
     }
-    Array.prototype.sort_by = function (key_func, reverse = false) {
-        return this.sort((a, b) => (key_func(b) - key_func(a)) * (reverse ? 1 : -1))
+    function sort_by (array, key_func, reverse = false) {
+        return array.sort((a, b) => (key_func(b) - key_func(a)) * (reverse ? 1 : -1))
     }
     
     const filterBooksLevel = (level) => {
